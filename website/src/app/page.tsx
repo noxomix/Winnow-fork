@@ -21,7 +21,6 @@ export default function Home() {
         <Benchmarks />
         <div className="h-16 sm:h-24" />
         <CodeSnippets />
-        <div className="h-16 sm:h-24" />
         <SelfHost />
         <div className="h-16 sm:h-24" />
       </main>

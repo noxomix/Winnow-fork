@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const placeholder =
   "The retrieval augmented generation pipeline essentially works by fetching relevant document chunks from a large vector database and then basically feeding them directly into the LLM context window for processing.";
@@ -19,7 +18,6 @@ export default function TryIt() {
   } | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { ref, isVisible } = useScrollReveal();
 
   const handleCompress = async () => {
     if (!input.trim()) return;
@@ -60,11 +58,7 @@ export default function TryIt() {
     : 0;
 
   return (
-    <section
-      id="try"
-      ref={ref}
-      className={`scroll-reveal ${isVisible ? "visible" : ""}`}
-    >
+    <section id="try">
       {/* Section label */}
       <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <span className="text-xs font-bold uppercase tracking-wide">

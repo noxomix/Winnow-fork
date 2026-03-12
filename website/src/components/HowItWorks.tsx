@@ -1,9 +1,4 @@
-"use client";
-
-import { useScrollReveal } from "@/hooks/useScrollReveal";
-
 export default function HowItWorks() {
-  const { ref, isVisible } = useScrollReveal();
   const steps = [
     {
       num: "01",
@@ -23,10 +18,7 @@ export default function HowItWorks() {
   ];
 
   return (
-    <section
-      ref={ref}
-      className={`scroll-reveal ${isVisible ? "visible" : ""}`}
-    >
+    <section>
       {/* Section label */}
       <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <span className="text-xs font-bold uppercase tracking-wide">

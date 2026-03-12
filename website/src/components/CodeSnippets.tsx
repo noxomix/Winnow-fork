@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 type Tab = "PYTHON" | "LANGCHAIN" | "CURL";
 
@@ -35,7 +34,6 @@ const tabs: Tab[] = ["PYTHON", "LANGCHAIN", "CURL"];
 export default function CodeSnippets() {
   const [active, setActive] = useState<Tab>("PYTHON");
   const [copied, setCopied] = useState(false);
-  const { ref, isVisible } = useScrollReveal();
 
   const handleCopy = () => {
     navigator.clipboard.writeText(snippets[active]);
@@ -46,10 +44,7 @@ export default function CodeSnippets() {
   const lines = snippets[active].split("\n");
 
   return (
-    <section
-      ref={ref}
-      className={`scroll-reveal ${isVisible ? "visible" : ""}`}
-    >
+    <section>
       {/* Section label */}
       <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <span className="text-xs font-bold uppercase tracking-wide">

@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   title: "Winnow - Keep the signal. Drop the noise.",
   description:
     "Free, open-source RAG compression middleware that removes token bloat from LLM prompts - drop-in, self-hostable, MIT licensed.",
+  icons: {
+    icon: "/logo.svg",
+  },
 };
 
 export default function RootLayout({

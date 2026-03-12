@@ -1,13 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const dockerCmd = "docker run -p 8000:8000 itsaryanchauhan/winnow";
 
 export default function SelfHost() {
   const [copied, setCopied] = useState(false);
-  const { ref, isVisible } = useScrollReveal();
 
   const handleCopy = () => {
     navigator.clipboard.writeText(dockerCmd);
@@ -16,16 +14,13 @@ export default function SelfHost() {
   };
 
   return (
-    <section
-      ref={ref}
-      className={`scroll-reveal ${isVisible ? "visible" : ""}`}
-    >
+    <section>
       {/* CTA */}
-      <div className="flex flex-col items-center justify-center border-b border-border px-4 py-16 text-center sm:py-24">
+      <div className="flex flex-col items-center justify-center border-b border-border px-4 py-10 text-center sm:py-16">
         <h2 className="text-[clamp(2rem,6vw,6rem)] font-bold uppercase leading-[0.9] tracking-[-0.04em]">
-          Self-host
+          Self-Host
           <br />
-          in seconds
+          In Seconds
         </h2>
         <p className="mt-4 text-xs font-bold uppercase tracking-widest text-muted">
           One command · No cloud · No API key
