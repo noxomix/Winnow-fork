@@ -1,0 +1,16 @@
+Metadata-Version: 2.4
+Name: winnow
+Version: 0.1.0
+Summary: Free open-source RAG compression middleware. Drop-in API for LLM pipelines.
+License: MIT
+Project-URL: Homepage, https://github.com/itsaryanchauhan/Winnow
+Project-URL: Documentation, https://github.com/itsaryanchauhan/Winnow#readme
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: httpx>=0.24.0
+Provides-Extra: langchain
+Requires-Dist: langchain-core>=0.1.0; extra == "langchain"
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-asyncio; extra == "dev"
+Requires-Dist: httpx; extra == "dev"
