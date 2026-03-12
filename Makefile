@@ -4,9 +4,15 @@ run:
 test:
 	pytest tests/ -v
 
+benchmark-squad:
+	PYTHONPATH=. python benchmarks/run_squad.py
+
+benchmark-latency:
+	PYTHONPATH=. python benchmarks/run_latency.py
+
 benchmark:
-	python benchmarks/run_squad.py
-	python benchmarks/run_latency.py
+	PYTHONPATH=. python benchmarks/run_squad.py
+	PYTHONPATH=. python benchmarks/run_latency.py
 
 docker-build:
 	docker build -t winnow .
