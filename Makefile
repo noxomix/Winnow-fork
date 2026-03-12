@@ -19,3 +19,6 @@ docker-build:
 
 docker-run:
 	docker run -p 8000:8000 winnow
+
+benchmark-gemini:
+	PYTHONPATH=. python benchmarks/run_gemini_eval.py

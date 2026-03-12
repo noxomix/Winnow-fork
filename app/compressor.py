@@ -1,5 +1,6 @@
 import torch
 from llmlingua import PromptCompressor
+from typing import Optional
 
 _compressor = None
 
@@ -22,29 +23,63 @@ def get_compressor():
         )
     return _compressor
 
+def chunk_text(text: str, max_tokens: int = 400) -> list:
+    words = text.split()
+    chunks = []
+    for i in range(0, len(words), max_tokens):
+        chunks.append(" ".join(words[i:i + max_tokens]))
+    return chunks
+
 def compress(text: str, ratio: float, protected: list, rag_mode: bool, include_diff: bool):
     comp = get_compressor()
+    words = text.split()
 
+    if len(words) > 300:
+        chunks = chunk_text(text, max_tokens=400)
+        compressed_chunks = []
+        total_original = 0
+        total_compressed = 0
+
+        for chunk in chunks:
+            kwargs = dict(rate=ratio, force_tokens=protected)
+            if rag_mode:
+                kwargs.update(rank_method="longllmlingua",
+                              condition_in_question="after_condition",
+                              reorder_context="sort")
+            result = comp.compress_prompt([chunk], **kwargs)
+            compressed_chunks.append(result["compressed_prompt"])
+            total_original += result["origin_tokens"]
+            total_compressed += result["compressed_tokens"]
+
+        combined_output = " ".join(compressed_chunks)
+        ratio_val = total_original / total_compressed if total_compressed > 0 else 1.0
+
+        diff = None
+        if include_diff:
+            compressed_words = set(combined_output.split())
+            diff = [{"token": w, "kept": w in compressed_words} for w in text.split()]
+
+        return {
+            "output": combined_output,
+            "original_tokens": total_original,
+            "compressed_tokens": total_compressed,
+            "ratio": round(ratio_val, 2),
+            "diff": diff
+        }
+
+    # Single chunk path
     kwargs = dict(rate=ratio, force_tokens=protected)
-
     if rag_mode:
         kwargs.update(rank_method="longllmlingua",
                       condition_in_question="after_condition",
                       reorder_context="sort")
 
-    result = comp.compress_prompt(
-        text if isinstance(text, list) else [text],
-        **kwargs
-    )
+    result = comp.compress_prompt([text], **kwargs)
 
     diff = None
     if include_diff:
-        original_words = set(text.split())
         compressed_words = set(result["compressed_prompt"].split())
-        diff = [
-            {"token": w, "kept": w in compressed_words}
-            for w in text.split()
-        ]
+        diff = [{"token": w, "kept": w in compressed_words} for w in text.split()]
 
     return {
         "output": result["compressed_prompt"],

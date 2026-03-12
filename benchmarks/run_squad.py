@@ -51,4 +51,34 @@ os.makedirs("benchmarks/results", exist_ok=True)
 with open("benchmarks/results/squad_results.json", "w") as f:
     json.dump(summary, f, indent=2)
 
-print("\nSaved to benchmarks/results/squad_results.json")
+
+print("\n=== Ratio Sweep (accuracy vs compression tradeoff) ===")
+ratios = [0.3, 0.4, 0.5, 0.6, 0.7]
+sweep_results = []
+
+for test_ratio in ratios:
+    correct = 0
+    total = 0
+    tokens_saved = []
+
+    for item in dataset:
+        answers = item["answers"]["text"]
+        if len(answers) == 0:
+            continue
+        total += 1
+        input_text = f"Question: {item['question']}\n\nDocument: {item['context']}"
+        result = compress(input_text, ratio=test_ratio, protected=[], rag_mode=True, include_diff=False)
+        tokens_saved.append(1 - result["compressed_tokens"] / result["original_tokens"])
+        if any(ans.lower() in result["output"].lower() for ans in answers):
+            correct += 1
+
+    sweep_results.append({
+        "ratio": test_ratio,
+        "answer_retention_pct": round(correct / total * 100, 1),
+        "avg_token_reduction_pct": round(sum(tokens_saved) / len(tokens_saved) * 100, 1)
+    })
+    print(f"ratio={test_ratio} | retention={round(correct/total*100,1)}% | reduction={round(sum(tokens_saved)/len(tokens_saved)*100,1)}%")
+
+with open("benchmarks/results/squad_sweep.json", "w") as f:
+    json.dump(sweep_results, f, indent=2)
+
