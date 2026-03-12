@@ -1,0 +1,125 @@
+"use client";
+
+import { useState } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+
+type Tab = "PYTHON" | "LANGCHAIN" | "CURL";
+
+const snippets: Record<Tab, string> = {
+  PYTHON: `from winnow import compress
+
+result = compress(
+    context=chunks,
+    question=query,
+    ratio=0.5
+)
+
+print(result["compressed_context"])
+print(result["original_tokens"])    # 420
+print(result["compressed_tokens"])  # 210`,
+  LANGCHAIN: `from winnow.langchain import WinnowCompressor
+
+compressor = WinnowCompressor(ratio=0.5)
+compressed_docs = compressor.compress_documents(docs, query)`,
+  CURL: `curl -X POST http://localhost:8000/v1/compress \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "context": "your retrieved chunks here",
+    "question": "what is the capital of France?",
+    "ratio": 0.5
+  }'`,
+};
+
+const tabs: Tab[] = ["PYTHON", "LANGCHAIN", "CURL"];
+
+export default function CodeSnippets() {
+  const [active, setActive] = useState<Tab>("PYTHON");
+  const [copied, setCopied] = useState(false);
+  const { ref, isVisible } = useScrollReveal();
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(snippets[active]);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const lines = snippets[active].split("\n");
+
+  return (
+    <section
+      ref={ref}
+      className={`scroll-reveal ${isVisible ? "visible" : ""}`}
+    >
+      {/* Section label */}
+      <div className="flex items-center justify-between border-b border-border px-4 py-3">
+        <span className="text-xs font-bold uppercase tracking-wide">
+          Integration
+        </span>
+        <span className="font-mono text-xs text-muted">DROP-IN</span>
+      </div>
+
+      {/* Feature layout: text left, code right */}
+      <div className="grid grid-cols-1 border-b border-border sm:grid-cols-12">
+        {/* Text column */}
+        <div className="flex flex-col justify-between border-b border-border p-4 sm:col-span-4 sm:border-b-0 sm:border-r sm:py-8">
+          <div>
+            <span className="mb-6 flex h-6 w-6 items-center justify-center rounded-full bg-foreground font-mono text-[10px] font-bold text-background">
+              {"/"}
+            </span>
+            <h2 className="mb-3 text-xl font-bold uppercase tracking-tight">
+              Add Winnow
+              <br />
+              in minutes
+            </h2>
+          </div>
+          <p className="text-xs font-medium uppercase leading-relaxed text-muted">
+            Python SDK, LangChain integration, raw HTTP, or OpenAI-compatible
+            proxy - just swap your base URL. Zero config required.
+          </p>
+        </div>
+
+        {/* Code column */}
+        <div className="sm:col-span-8">
+          {/* Tab bar */}
+          <div className="flex items-center justify-between border-b border-border">
+            <div className="flex">
+              {tabs.map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActive(tab)}
+                  className={`border-r border-border px-4 py-3 font-mono text-xs font-bold tracking-wide transition-colors ${
+                    active === tab
+                      ? "bg-foreground text-background"
+                      : "text-muted hover:text-foreground"
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={handleCopy}
+              className="px-4 font-mono text-[10px] font-bold tracking-wide text-muted hover:text-foreground hover:line-through"
+            >
+              {copied ? "COPIED" : "COPY"}
+            </button>
+          </div>
+
+          {/* Code block */}
+          <div className="flex min-h-[264px] overflow-x-auto">
+            <div className="select-none border-r border-border px-3 py-4 text-right font-mono text-xs text-dim">
+              {lines.map((_, i) => (
+                <div key={i} className="leading-6">
+                  {i + 1}
+                </div>
+              ))}
+            </div>
+            <pre className="flex-1 p-4 font-mono text-xs leading-6 text-muted">
+              <code>{snippets[active]}</code>
+            </pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
