@@ -117,7 +117,6 @@ uritemplate==4.2.0
 urllib3==2.6.3
 uvicorn==0.39.0
 websockets==15.0.1
--e git+https://github.com/itsaryanchauhan/Winnow.git@ee1d9a3e1f67e28c6d468071a017e9f36a21c60d#egg=winnow
 xxhash==3.6.0
 yarl==1.22.0
 zipp==3.23.0
