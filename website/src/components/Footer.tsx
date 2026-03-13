@@ -54,7 +54,7 @@ export default function Footer() {
             GITHUB
           </a>
           <a
-            href="https://hub.docker.com/repository/docker/itsaryanchauhan/winnow/general"
+            href="https://hub.docker.com/r/itsaryanchauhan/winnow"
             target="_blank"
             rel="noopener noreferrer"
             className="font-mono text-xs text-muted hover:text-foreground hover:line-through"

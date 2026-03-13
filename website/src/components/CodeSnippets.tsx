@@ -5,14 +5,16 @@ import { useState } from "react";
 type Tab = "PYTHON" | "LANGCHAIN" | "CURL";
 
 const snippets: Record<Tab, string> = {
-  PYTHON: `from winnow import compress
+  PYTHON: `from winnow import Winnow
+
+client = Winnow(base_url="http://localhost:8000")
 
 # Sentence-only compression
-result = compress(input_text, compression_ratio=0.5)
+result = client.compress(text=input_text, compression_ratio=0.5)
 
 # Question-guided compression (RAG-aware)
-guided = compress(
-    input_text,
+guided = client.compress(
+    text=input_text,
     compression_ratio=0.5,
     rag_mode=True,
     question="What is the warranty period?"
@@ -21,10 +23,13 @@ guided = compress(
 print(result["output"])
 print(result["original_tokens"])    # 420
 print(result["compressed_tokens"])  # 210`,
-  LANGCHAIN: `from winnow.langchain import WinnowCompressor
+  LANGCHAIN: `from winnow.langchain import WinnowRetriever
 
-compressor = WinnowCompressor(ratio=0.5)
-compressed_docs = compressor.compress_documents(docs, query)`,
+retriever = WinnowRetriever(
+    base_retriever,
+    compression_ratio=0.5
+)
+docs = retriever.get_relevant_documents("your question")`,
   CURL: `curl -X POST http://localhost:8000/v1/compress \\
   -H "Content-Type: application/json" \\
   -d '{

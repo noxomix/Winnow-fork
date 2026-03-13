@@ -1,13 +1,3 @@
----
-title: Winnow
-emoji: 🌾
-colorFrom: yellow
-colorTo: blue
-sdk: docker
-app_port: 7860
-pinned: false
----
-
 # Winnow 🌾
 
 **Open-source RAG prompt compression middleware. Keep the signal. Drop the noise.**
@@ -29,7 +19,7 @@ Winnow sits between your vector database and your LLM. It takes raw retrieved do
 - 🔒 **Protected Words**: Mark phrases that must never be removed
 - ⚖️ **Ratio Control**: Tune aggressiveness from 0.1 (light) to 0.9 (heavy)
 - 🔌 **OpenAI-Compatible Proxy**: Drop-in `/v1/chat/completions` — zero code changes
-- 🦜 **LangChain Integration**: Native `WinnowCompressor` drop-in wrapper
+- 🦜 **LangChain Integration**: Native `WinnowRetriever` drop-in wrapper
 - 🐳 **Self-Hostable**: Single Docker command, no API key required
 - 📦 **Pip Installable**: `pip install winnow-compress`
 
@@ -68,10 +58,12 @@ pip install winnow-compress
 ```
 
 ```python
-from winnow import compress
+from winnow import Winnow
 
-result = compress(
-    input_text,
+client = Winnow()
+
+result = client.compress(
+    text=input_text,
     compression_ratio=0.5,
     rag_mode=True,
     question="What is the warranty period?"
@@ -87,10 +79,13 @@ print(result["estimated_savings_usd"])    # e.g. 0.000525
 ### Option 3 — LangChain Drop-in
 
 ```python
-from winnow.langchain import WinnowCompressor
+from winnow.langchain import WinnowRetriever
 
-compressor = WinnowCompressor(ratio=0.5)
-compressed_docs = compressor.compress_documents(docs, query)
+retriever = WinnowRetriever(
+    base_retriever,
+    compression_ratio=0.5
+)
+docs = retriever.get_relevant_documents("your question")
 ```
 
 ### Option 4 — REST API (curl)
@@ -167,8 +162,8 @@ Winnow/
 ├── app/               # FastAPI application
 │   └── main.py        # API routes and server
 ├── winnow/            # pip package
-│   ├── __init__.py    # compress() function
-│   └── langchain.py   # WinnowCompressor
+│   ├── client.py      # Winnow
+│   └── langchain.py   # WinnowRetriever
 ├── benchmarks/        # SQuAD benchmark scripts and results
 ├── tests/             # Test suite
 ├── website/           # Next.js website (trywinnow.vercel.app)
