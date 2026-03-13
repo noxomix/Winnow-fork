@@ -38,6 +38,14 @@ export default function Nav() {
 
         <div className="flex items-center gap-6">
           <a
+            href="https://www.linkedin.com/company/winnow-compress/about/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden text-xs font-bold tracking-wide text-muted hover:text-foreground hover:line-through md:block"
+          >
+            LINKEDIN
+          </a>
+          <a
             href="https://github.com/itsaryanchauhan/Winnow"
             target="_blank"
             rel="noopener noreferrer"
@@ -61,6 +69,10 @@ export default function Nav() {
             { label: "DOCS", href: "/docs" },
             { label: "BENCHMARKS", href: "/benchmarks" },
             { label: "HOW IT WORKS", href: "/how-it-works" },
+            {
+              label: "LINKEDIN",
+              href: "https://www.linkedin.com/company/winnow-compress/about/",
+            },
             {
               label: "GITHUB",
               href: "https://github.com/itsaryanchauhan/Winnow",

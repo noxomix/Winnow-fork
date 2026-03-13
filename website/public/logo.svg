@@ -1,13 +1,19 @@
 <svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M20 20H90V90H20V20ZM35 35V75H75V35H35Z" fill="black"/>
-  <path d="M115 20H185V90H115V20ZM130 35V75H170V35H130Z" fill="black"/>
-  <path d="M210 20H280V90H210V20ZM225 35V75H265V35H225Z" fill="black"/>
+  <style>
+    .icon { fill: #000000; }
+    @media (prefers-color-scheme: dark) {
+      .icon { fill: #ffffff; }
+    }
+  </style>
+  <path class="icon" d="M20 20H90V90H20V20ZM35 35V75H75V35H35Z" />
+  <path class="icon" d="M115 20H185V90H115V20ZM130 35V75H170V35H130Z" />
+  <path class="icon" d="M210 20H280V90H210V20ZM225 35V75H265V35H225Z" />
 
-  <path d="M20 115H90V185H20V115ZM35 130V170H75V130H35Z" fill="black"/>
-  <rect x="115" y="115" width="70" height="70" fill="black"/>
-  <path d="M210 115H280V185H210V115ZM225 130V170H265V130H225Z" fill="black"/>
+  <path class="icon" d="M20 115H90V185H20V115ZM35 130V170H75V130H35Z" />
+  <rect class="icon" x="115" y="115" width="70" height="70" />
+  <path class="icon" d="M210 115H280V185H210V115ZM225 130V170H265V130H225Z" />
 
-  <path d="M20 210H90V280H20V210ZM35 225V265H75V225H35Z" fill="black"/>
-  <path d="M115 210H185V280H115V210ZM130 225V265H170V225H130Z" fill="black"/>
-  <path d="M210 210H280V280H210V210ZM225 225V265H265V225H225Z" fill="black"/>
+  <path class="icon" d="M20 210H90V280H20V210ZM35 225V265H75V225H35Z" />
+  <path class="icon" d="M115 210H185V280H115V210ZM130 225V265H170V225H130Z" />
+  <path class="icon" d="M210 210H280V280H210V210ZM225 225V265H265V225H225Z" />
 </svg>

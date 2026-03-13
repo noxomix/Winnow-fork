@@ -77,6 +77,14 @@ export default function Footer() {
           >
             ISSUES
           </a>
+          <a
+            href="https://www.linkedin.com/company/winnow-compress/about/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-xs text-muted hover:text-foreground hover:line-through"
+          >
+            LINKEDIN
+          </a>
         </div>
       </div>
 
