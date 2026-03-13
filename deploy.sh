@@ -87,8 +87,8 @@ fi
 
 # ─── 4. Docker Hub ────────────────────────────────────────
 if [ "$SKIP_DOCKER" = false ]; then
-  info "Building Docker image (linux/amd64 for universally compatible deployment)..."
-  docker build --platform linux/amd64 -t itsaryanchauhan/winnow:latest -t itsaryanchauhan/winnow:$VERSION .
+  info "Building Docker image..."
+  docker build -t itsaryanchauhan/winnow:latest -t itsaryanchauhan/winnow:$VERSION .
   info "Pushing to Docker Hub..."
   docker push itsaryanchauhan/winnow:latest
   docker push itsaryanchauhan/winnow:$VERSION

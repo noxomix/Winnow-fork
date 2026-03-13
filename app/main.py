@@ -6,7 +6,7 @@ from typing import Optional
 from fastapi.responses import RedirectResponse
 
 
-app = FastAPI(title="Winnow API", version="0.2.2")
+app = FastAPI(title="Winnow API", version="0.2.3")
 
 
 @app.get("/")
