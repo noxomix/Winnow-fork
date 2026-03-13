@@ -38,6 +38,21 @@ export default function Nav() {
 
         <div className="flex items-center gap-6">
           <a
+            href="https://www.producthunt.com/products/winnow-3?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-winnow-3"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:block transition-all hover:opacity-80"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              alt="Winnow - Keep the signal. Drop the noise. | Product Hunt"
+              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1097533&amp;theme=light&amp;t=1773428656356"
+              className="h-[30px] w-auto grayscale contrast-125 transition-all duration-300 hover:grayscale-0"
+              width="250"
+              height="54"
+            />
+          </a>
+          <a
             href="https://www.linkedin.com/company/winnow-compress/about/"
             target="_blank"
             rel="noopener noreferrer"
@@ -76,6 +91,10 @@ export default function Nav() {
             {
               label: "GITHUB",
               href: "https://github.com/itsaryanchauhan/Winnow",
+            },
+            {
+              label: "PRODUCT HUNT",
+              href: "https://www.producthunt.com/products/winnow-3?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-winnow-3",
             },
           ].map((item) => (
             <Link
