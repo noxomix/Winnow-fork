@@ -17,9 +17,17 @@
 }
 
 body {
+  margin: 0;
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+  animation: site-enter 420ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+  }
 }
 
 ::selection {
@@ -103,5 +111,14 @@ input[type="range"]::-webkit-slider-thumb {
   100% {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes site-enter {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

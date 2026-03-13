@@ -8,9 +8,9 @@ export const metadata = {
 
 export default function BenchmarksPage() {
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <Nav />
-      <main className="mt-[49px]">
+      <main className="mt-[49px] flex flex-grow flex-col">
         {/* Title */}
         <div className="border-b border-border px-4 py-8 sm:py-12">
           <h1 className="text-[clamp(2rem,6vw,6rem)] font-bold uppercase leading-[0.9] tracking-[-0.04em]">
@@ -129,6 +129,8 @@ export default function BenchmarksPage() {
           </table>
         </div>
 
+        <div className="flex-grow" />
+
         {/* Methodology note */}
         <div className="border-b border-border px-4 py-3 font-mono text-[10px] text-dim">
           METHODOLOGY: SQUAD · LLMLINGUA-2 · BASELINE F1: 78.4 · AVG LATENCY
@@ -136,6 +138,6 @@ export default function BenchmarksPage() {
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

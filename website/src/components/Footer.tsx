@@ -92,7 +92,7 @@ export default function Footer() {
             ARYAN CHAUHAN
           </a>
           <br />
-          <span className="text-foreground">●</span> ALL SYSTEMS NOMINAL
+          <span className="text-[#16a34a]">●</span> ALL SYSTEMS NOMINAL
         </div>
       </div>
     </footer>

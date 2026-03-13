@@ -7,13 +7,18 @@ type Tab = "PYTHON" | "LANGCHAIN" | "CURL";
 const snippets: Record<Tab, string> = {
   PYTHON: `from winnow import compress
 
-result = compress(
-    context=chunks,
-    question=query,
-    ratio=0.5
+# Sentence-only compression
+result = compress(input_text, compression_ratio=0.5)
+
+# Question-guided compression (RAG-aware)
+guided = compress(
+    input_text,
+    compression_ratio=0.5,
+    rag_mode=True,
+    question="What is the warranty period?"
 )
 
-print(result["compressed_context"])
+print(result["output"])
 print(result["original_tokens"])    # 420
 print(result["compressed_tokens"])  # 210`,
   LANGCHAIN: `from winnow.langchain import WinnowCompressor
@@ -23,9 +28,10 @@ compressed_docs = compressor.compress_documents(docs, query)`,
   CURL: `curl -X POST http://localhost:8000/v1/compress \\
   -H "Content-Type: application/json" \\
   -d '{
-    "context": "your retrieved chunks here",
-    "question": "what is the capital of France?",
-    "ratio": 0.5
+    "input": "your retrieved chunks here",
+    "compression_ratio": 0.5,
+    "rag_mode": true,
+    "question": "what is the capital of France?"
   }'`,
 };
 
@@ -101,15 +107,15 @@ export default function CodeSnippets() {
           </div>
 
           {/* Code block */}
-          <div className="flex min-h-[264px] overflow-x-auto">
-            <div className="select-none border-r border-border px-3 py-4 text-right font-mono text-xs text-dim">
+          <div className="flex min-h-[440px] bg-surface">
+            <div className="shrink-0 select-none border-r border-border px-3 py-4 text-right font-mono text-xs text-dim">
               {lines.map((_, i) => (
                 <div key={i} className="leading-6">
                   {i + 1}
                 </div>
               ))}
             </div>
-            <pre className="flex-1 p-4 font-mono text-xs leading-6 text-muted">
+            <pre className="min-w-0 flex-1 overflow-x-auto p-4 font-mono text-xs leading-6 text-muted">
               <code>{snippets[active]}</code>
             </pre>
           </div>

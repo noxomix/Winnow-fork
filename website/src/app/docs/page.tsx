@@ -20,6 +20,12 @@ const endpoints = [
         desc: "The text to compress.",
       },
       {
+        field: "question",
+        type: "string",
+        required: false,
+        desc: "Optional question to guide RAG-mode compression.",
+      },
+      {
         field: "compression_ratio",
         type: "float",
         required: false,
@@ -69,6 +75,12 @@ const endpoints = [
         type: "string[]",
         required: true,
         desc: "Array of text strings to compress.",
+      },
+      {
+        field: "question",
+        type: "string",
+        required: false,
+        desc: "Optional question to guide RAG-mode compression for all inputs.",
       },
       {
         field: "compression_ratio",
@@ -126,6 +138,12 @@ const endpoints = [
         type: "object[]",
         required: true,
         desc: "Standard OpenAI messages array (role + content).",
+      },
+      {
+        field: "question",
+        type: "string",
+        required: false,
+        desc: "Optional question to guide RAG-mode compression for user messages.",
       },
       {
         field: "compression_ratio",
