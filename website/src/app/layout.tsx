@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   description:
     "Free, open-source RAG compression middleware that removes token bloat from LLM prompts - drop-in, self-hostable, MIT licensed.",
   icons: {
-    icon: "/logo.svg",
+    icon: "/icon.svg",
   },
 };
 

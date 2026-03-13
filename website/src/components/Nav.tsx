@@ -14,7 +14,7 @@ export default function Nav() {
           href="/"
           className="flex items-center gap-2 text-sm font-bold tracking-tight"
         >
-          <Image src="/logo.svg" alt="Winnow" width={24} height={24} />
+          <Image src="../logo.svg" alt="Winnow" width={24} height={24} />
           <span className="text-base font-extrabold tracking-tight">
             WINNOW
           </span>
