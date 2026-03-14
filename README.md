@@ -37,7 +37,7 @@ Tested on SQuAD with LLMLingua-2. Baseline F1: 78.4. Avg latency: ~85ms.
 
 ```bash
 # Self-host in one command
-docker run -p 8000:8000 itsaryanchauhan/winnow
+docker run -p 8000:7860 itsaryanchauhan/winnow
 ```
 
 API live at `http://localhost:8000` · Docs at `http://localhost:8000/docs`
@@ -48,8 +48,24 @@ API live at `http://localhost:8000` · Docs at `http://localhost:8000/docs`
 ### Option 1 - Self-host with Docker
 
 ```bash
-docker run -p 8000:8000 itsaryanchauhan/winnow
+docker run -p 8000:7860 itsaryanchauhan/winnow
 ```
+
+### Option 1b - Self-host from your fork via GHCR
+
+This repository now includes a GitHub Actions pipeline that builds `linux/amd64` and `linux/arm64` images and publishes them to:
+
+```bash
+ghcr.io/<owner>/<repo>:latest
+```
+
+Example:
+
+```bash
+docker run -p 8000:7860 ghcr.io/<owner>/<repo>:latest
+```
+
+The image publish runs on pushes to `main`, version tags like `v0.2.8`, and manual workflow dispatches.
 
 ### Option 2 - pip install
 
